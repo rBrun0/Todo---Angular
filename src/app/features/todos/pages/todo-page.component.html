@@ -1,0 +1,123 @@
+<section class="todo-layout">
+  <article class="panel form-panel">
+    <h2>Criar tarefa</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submitTodo()">
+      <label>
+        Título da tarefa
+        <input
+          appAutofocus
+          type="text"
+          formControlName="title"
+          placeholder="Estudar angular"
+        />
+      </label>
+
+      @if (form.controls.title.touched && form.controls.title.invalid) {
+        <small class="error"
+          >Título é obrigatório e deve ter pelo menos 3 caracteres.</small
+        >
+      }
+
+      <label>
+        Descrição
+        <textarea
+          rows="3"
+          formControlName="description"
+          placeholder="Descrição curta"
+        ></textarea>
+      </label>
+
+      <div class="row">
+        <label>
+          Prioridade
+          <select formControlName="priority">
+            @for (priority of priorities; track priority) {
+              <option [value]="priority">{{ priority | titlecase }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Data de entrega
+          <input type="date" formControlName="dueDate" />
+        </label>
+      </div>
+
+      <label>
+        Tags (separadas por vírgula)
+        <input
+          type="text"
+          formControlName="tags"
+          placeholder="estudo, angular, projeto"
+        />
+      </label>
+
+      <button type="submit">Adicionar tarefa</button>
+    </form>
+
+    <div class="stats">
+      <p>
+        <strong>{{ store.total() }}</strong> total
+      </p>
+      <p>
+        <strong>{{ store.active() }}</strong> ativo
+      </p>
+      <p>
+        <strong>{{ store.completed() }}</strong> concluídas
+      </p>
+    </div>
+  </article>
+
+  <article class="panel list-panel">
+    <div class="list-header">
+      <h2>Suas tarefas</h2>
+      <div class="filters">
+        <button
+          type="button"
+          [class.active]="selectedFilter() === 'all'"
+          (click)="setFilter('all')"
+        >
+          Todas
+        </button>
+        <button
+          type="button"
+          [class.active]="selectedFilter() === 'active'"
+          (click)="setFilter('active')"
+        >
+          Ativas
+        </button>
+        <button
+          type="button"
+          [class.active]="selectedFilter() === 'completed'"
+          (click)="setFilter('completed')"
+        >
+          Concluídas
+        </button>
+      </div>
+    </div>
+
+    @if (filteredItems().length === 0) {
+      <div class="empty">
+        <h3>Nenhuma tarefa nesta visualização</h3>
+        <p>Adicione sua primeira tarefa ou altere os filtros.</p>
+      </div>
+    } @else {
+      <div class="todo-list">
+        @for (todo of filteredItems(); track trackByTodoId($index, todo)) {
+          <app-todo-item
+            [todo]="todo"
+            (toggle)="store.toggleTodo($event)"
+            (remove)="store.removeTodo($event)"
+          />
+        }
+      </div>
+    }
+
+    @if (store.completed() > 0) {
+      <button type="button" class="clear" (click)="store.clearCompleted()">
+        Limpar concluídas
+      </button>
+    }
+  </article>
+</section>

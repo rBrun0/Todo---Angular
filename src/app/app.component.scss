@@ -1,0 +1,56 @@
+:host {
+  display: block;
+}
+
+.app-shell {
+  min-height: 100dvh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.2rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  color: #0f172a;
+}
+
+p {
+  margin: 0.2rem 0 0;
+  color: #334155;
+}
+
+nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+a.active {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    flex-direction: column;
+    align-items: start;
+  }
+}

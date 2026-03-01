@@ -1,0 +1,24 @@
+.learn-panel {
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+h2 {
+  margin-top: 0;
+  color: #0f172a;
+}
+
+p {
+  color: #334155;
+}
+
+ul {
+  margin: 0.85rem 0 0;
+  padding-left: 1.2rem;
+  color: #1e293b;
+  display: grid;
+  gap: 0.45rem;
+}

@@ -1,0 +1,57 @@
+<article
+  class="todo-card"
+  [class.completed]="todo().completed"
+  [class.priority-high]="todo().priority === 'high'"
+  [class.priority-medium]="todo().priority === 'medium'"
+  [class.priority-low]="todo().priority === 'low'"
+>
+  <button
+    type="button"
+    class="check"
+    [attr.aria-label]="
+      todo().completed ? 'Marcar como ativa' : 'Marcar como concluída'
+    "
+    (click)="onToggle()"
+  >
+    @if (todo().completed) {
+      ✓
+    } @else {
+      ○
+    }
+  </button>
+
+  <div class="content">
+    <header>
+      <h3>{{ todo().title }}</h3>
+      <p>{{ todo().priority | priorityLabel }}</p>
+    </header>
+
+    @if (todo().description) {
+      <p class="description">{{ todo().description }}</p>
+    }
+
+    <footer>
+      <span>Criada em {{ todo().createdAt | date: "mediumDate" }}</span>
+      @if (todo().dueDate) {
+        <span>Entrega em {{ todo().dueDate | date: "mediumDate" }}</span>
+      }
+    </footer>
+
+    @if (todo().tags.length > 0) {
+      <div class="tags">
+        @for (tag of todo().tags; track tag) {
+          <small>#{{ tag }}</small>
+        }
+      </div>
+    }
+  </div>
+
+  <button
+    type="button"
+    class="delete"
+    aria-label="Excluir tarefa"
+    (click)="onRemove()"
+  >
+    ✕
+  </button>
+</article>
